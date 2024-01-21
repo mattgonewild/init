@@ -1,5 +1,5 @@
-wget https://github.com/mattgonewild/init/raw/master/user-dirs -O ~/.config/user-dirs.dirs
-wget https://github.com/mattgonewild/init/raw/master/bashrc -O ~/.bashrc
+wget https://raw.githubusercontent.com/mattgonewild/init/master/user-dirs -O ~/.config/user-dirs.dirs
+wget https://raw.githubusercontent.com/mattgonewild/init/master/bashrc -O ~/.bashrc
 
 source ~/.bashrc
 
