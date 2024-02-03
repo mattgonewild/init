@@ -33,3 +33,6 @@ echo "dart --config --no-analytics; flutter --config --no-analytics (if you want
 echo "gh auth login"
 echo 'git config --global user.name "Matt W."'
 echo 'git config --global user.email "human@mattgonewild.com"'
+echo "https://github.com/protocolbuffers/protobuf/releases/latest"
+echo "go install google.golang.org/protobuf/cmd/protoc-gen-go@latest"
+echo "dart pub global activate protoc_plugin"
