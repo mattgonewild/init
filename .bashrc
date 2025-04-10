@@ -23,29 +23,13 @@ if [ -d ~/.bashrc.d ]; then
     done
 fi
 unset rc
-
 umask 027
 
 export EDITOR="/usr/bin/vim"
-
-# Bash
-export HISTFILE="$HOME/.bash_history_alt"
-export HISTSIZE=1000000000
+export PROMPT_COMMAND=("history -a")
+export HISTCONTROL=erasedups:ignorespace
+export HISTSIZE=-1
 export HISTFILESIZE=-1
-export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
-# Go
-export PATH="$PATH:$(go env GOPATH)/bin"
+alias go='~/go/bin/go1.24.2'
 
-# Dart
-export PATH="$PATH:$HOME/.pub-cache/bin"
-
-# Flutter
-export PATH="$PATH:$HOME/flutter/bin"
-
-# Android
-export PATH="$PATH:$HOME/android/cmdline-tools/latest/bin"
-
-# Fly.io
-export FLYCTL_INSTALL="$HOME/.fly"
-export PATH="$PATH:$FLYCTL_INSTALL/bin"

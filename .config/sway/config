@@ -13,7 +13,6 @@ set $left a
 set $down s
 set $up w
 set $right d
-
 # Your preferred terminal emulator
 # Recommends: foot
 set $term foot
@@ -22,29 +21,27 @@ set $term foot
 # on the original workspace that the command was run on.
 # Recommends: rofi-wayland
 set $rofi_cmd rofi \
-        -run-command 'swaymsg exec -- {cmd}' \
-        -run-shell-command 'swaymsg exec -- {terminal} -e {cmd}' \
         -terminal '$term'
 # Shows a combined list of the applications with desktop files and
 # executables from PATH.
 # TODO: add window with the next release of rofi-wayland
 set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
 
-# displays
-set $d_main "eDP-1"
-set $d_secondary "DSI-1"
-
-# idle
-set $lock_timeout 180
-set $screen_timeout 120
-
 ### Output configuration
 #
+set $lenovo_main "eDP-1"
+set $lenovo_tab "DSI-1"
+set $asus_horizontal "DP-1"
+set $asus_vertical "HDMI-A-1"
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
 output * bg /usr/share/backgrounds/default.png fill
-output $d_main scale 1
+output * scale 1
 
+output $lenovo_main resolution 3072x1440@120Hz
+output $lenovo_tab resolution 800x1280@60Hz
+output $asus_horizontal resolution 3840x2160@60Hz
+output $asus_vertical resolution 3840x2160@60Hz transform 90
 #
 # Example configuration:
 #
@@ -52,51 +49,29 @@ output $d_main scale 1
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
-# Idle and lock configuration
+### Idle configuration
+#
+ exec swayidle -w \
+          timeout 300 'swaylock -f -c 000000' \
+          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+          before-sleep 'swaylock -f -c 000000'
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 60 seconds, and turn your screens back on when
+# your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
-# The timeouts can be customized via `$lock_timeout` and `$screen_timeout`
-# variables. For a predictable behavior, keep the `$screen_timeout` value
-# lesser than the `$lock_timeout`.
-#
-# You can also lock the screen manually by running `loginctl lock-session` or
-# add a binding for the command. Example:
-
-bindsym $mod+Shift+Escape  exec loginctl lock-session
-
-# Note that all swaylock customizations are handled via /etc/swaylock/config and
-# can be overridden via $XDG_CONFIG_HOME/swaylock/config (~/.config/swaylock/config).
-#
-# Requires: swayidle
-# Requires: swaylock
-# Requires: /usr/bin/pkill, /usr/bin/pgrep
-
-exec LT="$lock_timeout" ST="$screen_timeout" LT=${LT:-300} ST=${ST:-60} && \
-    swayidle -w \
-        timeout $LT 'swaylock -f' \
-        timeout $((LT + ST)) 'swaymsg "output * dpms off"' \
-                      resume 'swaymsg "output * dpms on"'  \
-        timeout $ST 'pgrep -xu "$USER" swaylock >/dev/null && swaymsg "output * dpms off"' \
-             resume 'pgrep -xu "$USER" swaylock >/dev/null && swaymsg "output * dpms on"'  \
-        before-sleep 'swaylock -f' \
-        lock 'swaylock -f' \
-        unlock 'pkill -xu "$USER" -SIGUSR1 swaylock'
 
 ### Input configuration
 #
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
+set $lenovo_tab_touchscreen "1386:21263:Wacom_HID_530F_Finger"
+
+input $lenovo_tab_touchscreen map_to_output $lenovo_tab
+
 input type:touch {
     dwt enabled
     tap enabled
@@ -108,9 +83,17 @@ input type:touchpad {
     tap_button_map lrm
     pointer_accel 0.65
 }
-
-# map_to_output $d_main
-input "1386:21263:Wacom_HID_530F_Finger" events disabled
+# Example configuration:
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
 
 ### Key bindings
 #
@@ -136,13 +119,10 @@ input "1386:21263:Wacom_HID_530F_Finger" events disabled
     bindsym $mod+Shift+c reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+Escape exec swaymsg exit
 #
 # Moving around:
 #
-
-focus_follows_mouse yes
-
     # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
@@ -167,6 +147,19 @@ focus_follows_mouse yes
 #
 # Workspaces:
 #
+    workspace 1 output $lenovo_main
+    workspace 2 output $lenovo_main
+    workspace 3 output $asus_horizontal
+    workspace 4 output $asus_horizontal
+    workspace 5 output $asus_horizontal
+    workspace 6 output $asus_horizontal
+    workspace 7 output $asus_horizontal
+    workspace 8 output $asus_vertical
+    workspace 9 output $asus_vertical
+    workspace 0 output $lenovo_tab
+
+    for_window [app_id="Waydroid"] move window to workspace number 0; border none; fullscreen enable
+
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
@@ -177,7 +170,7 @@ focus_follows_mouse yes
     bindsym $mod+7 workspace number 7
     bindsym $mod+8 workspace number 8
     bindsym $mod+9 workspace number 9
-    bindsym $mod+0 workspace number 10
+    bindsym $mod+0 workspace number 0
     # Move focused container to workspace
     bindsym $mod+Shift+1 move container to workspace number 1
     bindsym $mod+Shift+2 move container to workspace number 2
@@ -188,36 +181,22 @@ focus_follows_mouse yes
     bindsym $mod+Shift+7 move container to workspace number 7
     bindsym $mod+Shift+8 move container to workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
-    bindsym $mod+Shift+0 move container to workspace number 10
+    bindsym $mod+Shift+0 move container to workspace number 0
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
-
-    workspace 1 output $d_main
-    workspace 2 output $d_main
-    workspace 3 output $d_main
-    workspace 4 output $d_main
-    workspace 5 output $d_main
-    workspace 6 output $d_main
-    workspace 7 output $d_main
-    workspace 8 output $d_secondary
-    workspace 9 output $d_secondary
-    workspace 10 output $d_secondary
-
-    for_window [app_id="Waydroid"] move window to workspace number 10; border none; fullscreen enable
-
 #
 # Layout stuff:
 #
     # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
+    # $mod+h or $mod+v, for horizontal and vertical splits
     # respectively.
     bindsym $mod+h splith
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+r layout stacking
-    bindsym $mod+t layout tabbed
-    bindsym $mod+e layout toggle split
+    bindsym $mod+n layout stacking
+    bindsym $mod+m layout tabbed
+    bindsym $mod+b layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
@@ -265,7 +244,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+c mode "resize"
+bindsym $mod+r mode "resize"
 
 # Include configs from 3 locations:
 #  - /usr/share/sway/config.d
