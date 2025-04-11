@@ -1,0 +1,27 @@
+[
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.splitEditorLeft"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.splitEditorRight"
+    },
+    {
+        "key": "ctrl+i",
+        "command": "workbench.action.splitEditorUp"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.splitEditorDown"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "ctrl+shift+x",
+        "command": "workbench.panel.chat",
+        "when": "workbench.panel.chat.view.copilot.active"
+    }
+]
