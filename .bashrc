@@ -30,4 +30,3 @@ export PROMPT_COMMAND=("history -a")
 export HISTCONTROL=erasedups:ignorespace
 export HISTSIZE=-1
 export HISTFILESIZE=-1
-

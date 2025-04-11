@@ -1,18 +1,18 @@
 [
     {
-        "key": "ctrl+shift+j",
+        "key": "ctrl+shift+g",
         "command": "workbench.action.splitEditorLeft"
     },
     {
-        "key": "ctrl+shift+l",
+        "key": "ctrl+shift+j",
         "command": "workbench.action.splitEditorRight"
     },
     {
-        "key": "ctrl+shift+i",
+        "key": "ctrl+shift+y",
         "command": "workbench.action.splitEditorUp"
     },
     {
-        "key": "ctrl+shift+k",
+        "key": "ctrl+shift+h",
         "command": "workbench.action.splitEditorDown"
     },
     {
