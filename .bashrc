@@ -31,5 +31,3 @@ export HISTCONTROL=erasedups:ignorespace
 export HISTSIZE=-1
 export HISTFILESIZE=-1
 
-alias go='~/go/bin/go1.24.2'
-
