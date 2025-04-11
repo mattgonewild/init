@@ -12,7 +12,7 @@
         "command": "workbench.action.splitEditorUp"
     },
     {
-        "key": "ctrl+k",
+        "key": "ctrl+down",
         "command": "workbench.action.splitEditorDown"
     },
     {
