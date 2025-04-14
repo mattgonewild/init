@@ -1,0 +1,37 @@
+[
+    {
+        "key": "ctrl+shift+g",
+        "command": "workbench.action.splitEditorLeft"
+    },
+    {
+        "key": "ctrl+shift+j",
+        "command": "workbench.action.splitEditorRight"
+    },
+    {
+        "key": "ctrl+shift+y",
+        "command": "workbench.action.splitEditorUp"
+    },
+    {
+        "key": "ctrl+shift+h",
+        "command": "workbench.action.splitEditorDown"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.toggleSidebarVisibility"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "workbench.view.explorer",
+        "when": "viewContainer.workbench.view.explorer.enabled"
+    },
+    {
+        "key": "ctrl+shift+g",
+        "command": "workbench.view.scm",
+        "when": "workbench.scm.active"
+    },
+    {
+        "key": "ctrl+shift+x",
+        "command": "workbench.panel.chat",
+        "when": "workbench.panel.chat.view.copilot.active"
+    }
+]
