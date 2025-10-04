@@ -1,5 +1,9 @@
 [
     {
+        "key": "ctrl+0",
+        "command": "workbench.action.zoomReset"
+    },
+    {
         "key": "ctrl+shift+g",
         "command": "workbench.action.splitEditorLeft"
     },
@@ -33,5 +37,9 @@
         "key": "ctrl+shift+x",
         "command": "workbench.panel.chat",
         "when": "workbench.panel.chat.view.copilot.active"
+    },
+    {
+        "key": "ctrl+shift+l",
+        "command": "deleteAllRight"
     }
 ]
